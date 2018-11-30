@@ -110,6 +110,7 @@
       container.append(navigation);
 
       createItems(items, navigation);
+      
       navigation.addEventListener('click', function(event) {
         if(event.target.classList.contains('menu__triangle')) {
           const triangle = event.target;
