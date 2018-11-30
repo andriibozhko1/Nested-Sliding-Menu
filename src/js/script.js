@@ -143,15 +143,28 @@
 
       for (let i = 0; i < subNavigation.length; i++) {
         const subItems = document.createElement('li');
+        const itemsContent = document.createElement('div');
         const subLinks = document.createElement('a');
+
+        if(subNavigation[i].items) {
+          const triangleIcon = document.createElement('div');
+          triangleIcon.classList.add('menu__triangle');
+          itemsContent.appendChild(triangleIcon);
+        } else {
+          const dotIcon = document.createElement('div');
+          dotIcon.classList.add('menu__DotIcon');
+          itemsContent.appendChild(dotIcon);
+        }
         
+        itemsContent.classList.add('items-content');
         subItems.classList.add('menu__items');
         subLinks.classList.add('menu__links');
         subLinks.setAttribute('href', subNavigation[i].link);
         subLinks.innerHTML = subNavigation[i].title;
 
         createSubNavigation.appendChild(subItems);
-        subItems.appendChild(subLinks);
+        subItems.appendChild(itemsContent);
+        itemsContent.appendChild(subLinks);
       }
     }
   };
