@@ -109,10 +109,18 @@
       const navItems = document.createElement('li');
       const navLinks = document.createElement('a');
       const itemsContent = document.createElement('div');
-      const triangleIcon = document.createElement('div');
+
+      if(items[i].items) {
+        const triangleIcon = document.createElement('div');
+        triangleIcon.classList.add('menu__triangle');
+        itemsContent.appendChild(triangleIcon);
+      } else {
+        const dotIcon = document.createElement('div');
+        dotIcon.classList.add('menu__DotIcon');
+        itemsContent.appendChild(dotIcon);
+      }
       const subNavigation = items[i].items;
 
-      triangleIcon.classList.add('menu__triangle');
       itemsContent.classList.add('items-content');
       navItems.classList.add('menu__items');
       navLinks.classList.add('menu__links');
@@ -120,10 +128,8 @@
       navLinks.innerHTML = items[i].title;
 
       navItems.appendChild(itemsContent);
-      itemsContent.appendChild(triangleIcon);
       itemsContent.appendChild(navLinks);
       navigation.appendChild(navItems);
-
       createSubItems(subNavigation, navItems);
     }
   };
@@ -149,6 +155,6 @@
       }
     }
   };
-
+  
   createHeaders();
 }());
