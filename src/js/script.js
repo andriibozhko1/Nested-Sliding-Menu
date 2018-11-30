@@ -91,17 +91,87 @@
       ]
     }
   ];
+
   const createHeaders = function() {
     const container = document.querySelector(".app");
-    for(let i = 0; i < menu.length; i++) {
-      const headers = document.createElement('h2');
-      const createUl = document.createElement('ul');
+    for (let i = 0; i < menu.length; i++) {
+      const headers = document.createElement("h2");
+      const bottomLine = document.createElement("hr");
+      const navigation = document.createElement("ul");
+      const items = menu[i].items;
+
+      navigation.classList.add("menu");
+      bottomLine.classList.add("headers-line");
+      headers.classList.add("title");
       headers.innerHTML = menu[i].title;
 
       container.appendChild(headers);
-      container.append(createUl);
+      container.appendChild(bottomLine);
+      container.append(navigation);
+
+      createItems(items, navigation);
+      navigation.addEventListener('click', function(event) {
+        if(event.target.classList.contains('menu__triangle')) {
+          const triangle = event.target;
+          const findNav = triangle.parentElement.parentElement;
+          const subNav = findNav.querySelector('[data-sub-menu]');
+          if(subNav.classList.contains('hide')){
+            triangle.classList.add('active');
+            subNav.classList.remove('hide')
+          } else {
+            triangle.classList.remove('active');
+            subNav.classList.add('hide')
+          }
+        }
+      });
     }
-  }
+  };
+
+  const createItems = function(items, navigation) {
+    for (let i = 0; i < items.length; i++) {
+      const navItems = document.createElement("li");
+      const navLinks = document.createElement("a");
+      const itemsContent = document.createElement("div");
+      const triangleIcon = document.createElement("div");
+      const subNavigation = items[i].items;
+
+      triangleIcon.classList.add("menu__triangle");
+      itemsContent.classList.add("items-content");
+      navItems.classList.add("menu__items");
+      navLinks.classList.add("menu__links");
+      navLinks.setAttribute("href", items[i].link);
+      navLinks.innerHTML = items[i].title;
+
+      navItems.appendChild(itemsContent);
+      itemsContent.appendChild(triangleIcon);
+      itemsContent.appendChild(navLinks);
+      navigation.appendChild(navItems);
+
+      createSubItems(subNavigation, navItems);
+    }
+  };
+
+  const createSubItems = function(subNavigation, navItems) {
+    if (subNavigation) {
+      const createSubNavigation = document.createElement("ul");
+      createSubNavigation.classList.add("hide");
+      createSubNavigation.dataset.subMenu = 'hide';
+      navItems.appendChild(createSubNavigation);
+
+      for (let i = 0; i < subNavigation.length; i++) {
+        const subItems = document.createElement("li");
+        const subLinks = document.createElement("a");
+
+        subItems.classList.add("menu__items");
+        subLinks.classList.add("menu__links");
+        subLinks.setAttribute("href", subNavigation[i].link);
+        subLinks.innerHTML = subNavigation[i].title;
+
+        createSubNavigation.appendChild(subItems);
+        subItems.appendChild(subLinks);
+      }
+    }
+  };
 
   createHeaders();
 })();
