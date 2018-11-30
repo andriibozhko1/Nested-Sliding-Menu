@@ -144,7 +144,7 @@
       for (let i = 0; i < subNavigation.length; i++) {
         const subItems = document.createElement('li');
         const subLinks = document.createElement('a');
-
+        
         subItems.classList.add('menu__items');
         subLinks.classList.add('menu__links');
         subLinks.setAttribute('href', subNavigation[i].link);
