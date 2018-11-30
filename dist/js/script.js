@@ -92,13 +92,8 @@
           const triangle = event.target;
           const findNav = triangle.parentElement.parentElement;
           const subNav = findNav.querySelector('[data-sub-menu]');
-          if (subNav.classList.contains('hide')) {
-            triangle.classList.add('active');
-            subNav.classList.remove('hide');
-          } else {
-            triangle.classList.remove('active');
-            subNav.classList.add('hide');
-          }
+          triangle.classList.toggle('active');
+          subNav.classList.toggle('hide');
         }
       });
     }
